@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  Type A Number: <input v-model.number="number" />
+  <p class="big-number">{{ tweened.toFixed(0) }}</p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { gsap } from "gsap"
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      number: 0,
+      tweened: 0
+    }
+  },
+  watch: {
+    number(n) {
+      gsap.to(this, { duration: 0.5, tweened: Number(n) || 0 })
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.big-number {
+  font-weight: bold;
+  font-size: 2em;
 }
 </style>
